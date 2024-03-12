@@ -308,7 +308,7 @@ export class PrinterService {
       }
 
       const result = await pdf.save();
-      
+
       await page.close();
       browser.disconnect();
       return result;
