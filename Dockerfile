@@ -36,6 +36,6 @@ RUN pnpm run prisma:generate
 ENV TZ=UTC
 ENV NODE_ENV=production
 
-EXPOSE 3000
+EXPOSE 3001
 
 CMD [ "dumb-init", "pnpm", "run", "start" ]
