@@ -50,7 +50,7 @@ services:
     command: redis-server --requirepass password
 
   app:
-    image: amruthpillai/reactive-resume:latest
+    build: .
     restart: unless-stopped
     ports:
       - 3000:3000

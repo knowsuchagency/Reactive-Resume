@@ -13,8 +13,8 @@ export const resumeSchema = z.object({
   locked: z.boolean().default(false),
   userId: idSchema,
   user: userSchema.optional(),
-  createdAt: z.date().or(z.dateString()),
-  updatedAt: z.date().or(z.dateString()),
+  createdAt: z.string(),
+  updatedAt: z.string(),
 });
 
 export class ResumeDto extends createZodDto(resumeSchema) {}

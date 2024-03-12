@@ -9,6 +9,7 @@ import {
   Param,
   Patch,
   Post,
+  Res,
   UseGuards,
 } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
@@ -126,12 +127,31 @@ export class ResumeController {
   }
 
   @Get("/print/:id")
-  @UseGuards(OptionalGuard, ResumeGuard)
   async printResume(@User("id") userId: string | undefined, @Resume() resume: ResumeDto) {
     try {
       const url = await this.resumeService.printResume(resume, userId);
 
       return { url };
+    } catch (error) {
+      Logger.error(error);
+      throw new InternalServerErrorException(error);
+    }
+  }
+
+  @Post("/print/data")
+  async printResumeData(@Body() resume: ResumeDto, @Res() res: any) {
+    try {
+      const data = await this.resumeService.printResumeData(resume);
+      if (data) {
+        res.set({
+          "Content-Type": "application/pdf",
+          "Content-Disposition": "attachment; filename=resume.pdf",
+        });
+        res.send(Buffer.from(data));
+      } else {
+        res.status(400);
+        res.send("No data available");
+      }
     } catch (error) {
       Logger.error(error);
       throw new InternalServerErrorException(error);

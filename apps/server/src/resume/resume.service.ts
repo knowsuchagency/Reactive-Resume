@@ -189,6 +189,12 @@ export class ResumeService {
     return url;
   }
 
+  async printResumeData(resume: ResumeDto) {
+    const data = await this.printerService.printResumeData(resume);
+
+    return data;
+  }
+
   printPreview(resume: ResumeDto) {
     return this.printerService.printPreview(resume);
   }
