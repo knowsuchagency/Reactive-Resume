@@ -22,7 +22,7 @@ jobs:
 
     - name: Add upstream remote
       run: |
-        git remote add upstream https://github.com/upstream-owner/upstream-repo.git
+        git remote add upstream https://github.com/AmruthPillai/Reactive-Resume.git
         git fetch upstream
 
     - name: Merge upstream changes
