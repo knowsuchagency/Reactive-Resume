@@ -1,6 +1,7 @@
 name: Daily Upstream Sync
 
 on:
+  workflow_dispatch:  # Allows manual triggering
   schedule:
     - cron: '0 0 * * *'  # Runs every day at midnight
 
