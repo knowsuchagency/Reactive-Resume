@@ -55,7 +55,7 @@ services:
     build: ../../
     restart: unless-stopped
     ports:
-      - 3000:3001
+      - 3333:3001
     depends_on:
       - postgres
       - minio
