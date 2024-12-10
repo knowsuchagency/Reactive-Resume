@@ -20,6 +20,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - reactive-internal
 
   # Storage (for image uploads)
   minio:
@@ -33,6 +35,8 @@ services:
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
+    networks:
+      - reactive-internal
 
   # Chrome Browser (for printing and previews)
   chrome:
@@ -44,12 +48,16 @@ services:
       TOKEN: chrome_token
       EXIT_ON_HEALTH_FAILURE: true
       PRE_REQUEST_HEALTH_CHECK: true
+    networks:
+      - reactive-internal
 
   # Redis (for cache & server session management)
   redis:
     image: redis:alpine
     restart: unless-stopped
     command: redis-server --requirepass password
+    networks:
+      - reactive-internal
 
   app:
     build: ../../
@@ -117,7 +125,14 @@ services:
       GOOGLE_CLIENT_ID: google_client_id
       GOOGLE_CLIENT_SECRET: google_client_secret
       GOOGLE_CALLBACK_URL: http://localhost:3000/api/auth/google/callback
+    networks:
+      - reactive-internal
 
 volumes:
   minio_data:
   postgres_data:
+
+# Add networks section at the bottom
+networks:
+  reactive-internal:
+    name: reactive-internal
